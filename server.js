@@ -1,6 +1,6 @@
 const express = require('express')
 const puppeteer = require('puppeteer')
-const replace = require('relative-replace')
+const replace = require('absolutify')
 
 const app = express()
 
@@ -12,7 +12,9 @@ app.get('/', async (req, res) => {
     } else {
         // generate puppeteer screenshot 
         try {
-            const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
+            // If headless Chrome is not launching on Debian, use the following line instead
+            // const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
+            const browser = await puppeteer.launch()
             const page = await browser.newPage()
             await page.goto(`https://${url}`)
             
