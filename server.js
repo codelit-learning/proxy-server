@@ -16,7 +16,7 @@ app.get('/', async (req, res) => {
             // const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
             const browser = await puppeteer.launch()
             const page = await browser.newPage()
-            await page.goto(`https://${url}`)
+            await page.goto(`https://${url}`, {"waitUntil" : ['load', 'domcontentloaded', 'networkidle0']})
             
             let document = await page.evaluate(() => document.documentElement.outerHTML)
             document = replace(document, `/?url=${url.split('/')[0]}`)
